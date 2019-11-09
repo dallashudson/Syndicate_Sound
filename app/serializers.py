@@ -1,4 +1,16 @@
 from rest_framework import serializers
-from apps.models import Song, Album, Playlist, LANGUAGE_CHOICES, STYLE_CHOICES
+from app.models import Song, Album, Playlist
+class SongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['id', 'name', 'file_name', 'user']
 
-class MusicSerializer(serializers.Serializer):
+class AlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['id', 'name', 'file_name', 'user']
+
+class PlaylistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Playlist
+        fields = ['id', 'artist', 'name', 'creation_date', 'num_stars', 'size']
