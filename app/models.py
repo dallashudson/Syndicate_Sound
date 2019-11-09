@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from synsound.song import Song
-
 
 class Song(models.Model):
     upload_date = models.DateField()

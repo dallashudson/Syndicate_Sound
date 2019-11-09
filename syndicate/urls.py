@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
+from rest_framework.schemas import get_schema_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
-    path('', include('app.urls')),
+    path('api/v1/', include('users.urls')),
     path('admin/', admin.site.urls),
 ]
