@@ -1,6 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', include('app.urls'))
+    path('app/', views.SizeOfPlist, name='Playlist Size'),
+    path('app/', views.SizeOfAlbum, name='Album Size'),
 ]
