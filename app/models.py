@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters.html import HtmlFormatter
-from pygments import highlight
+
 
 class Song(models.Model):
 
