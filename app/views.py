@@ -5,8 +5,8 @@ from rest_framework import permissions
 
 from django.http import HttpResponse, Http404
 
-from app.models import Song, Album, Playlist
-from app.serializers import SongSerializer, AlbumSerializer, PlaylistSerializer
+from app.models import Song, Record, Playlist
+from app.serializers import SongSerializer, RecordSerializer, PlaylistSerializer
 from app.permissions import IsOwnerOrReadOnly
 
 
@@ -24,16 +24,16 @@ def PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 
-def AlbumList(generics.ListCreateAPIView):
-    queryset = Album.objects.all()
-    serializer_class = AlbumSerializer
+def RecordList(generics.ListCreateAPIView):
+    queryset = Record.objects.all()
+    serializer_class = RecordSerializer
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-def AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Album.objects.all()
-    serializer_class = AlbumSerializer
+def RecordDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Record.objects.all()
+    serializer_class = RecordSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 

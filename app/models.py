@@ -23,9 +23,9 @@ class Song(models.Model):
         self.highlighted = highlight(self.name)
         super(Song, self).save(*args, **kwargs)
 
-class Album(models.Model):
+class Record(models.Model):
 
-    owner = models.ForeignKey('auth.User', related_name='albums', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='recordss', on_delete=models.CASCADE)
     highlighted = models.TextField()
 
     artist = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -43,7 +43,7 @@ class Album(models.Model):
         num_stars = 'stars' if self.linenos else False #all bruh moments im not sure how we collect these
         options = {'title': self.name} if self.name else {}
         self.highlighted = highlight(self.name)
-        super(Album, self).save(*args, **kwargs)
+        super(Record, self).save(*args, **kwargs)
 
 class Playlist(models.Model):
 
