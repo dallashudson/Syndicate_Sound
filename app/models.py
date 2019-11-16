@@ -14,6 +14,19 @@ class Song(models.Model):
     file_name = models.TextField()
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        """
+        Use the `pygments` library to create a highlighted HTML
+        representation of the song.
+        """
+        lexer = get_lexer_by_name(self.language)
+        linenos = 'table' if self.linenos else False
+        options = {'title': self.title} if self.title else {}
+        formatter = HtmlFormatter(style=self.style, linenos=linenos,
+                                full=True, **options)
+        self.highlighted = highlight(self.code, lexer, formatter)
+        super(Song, self).save(*args, **kwargs)
+
 class Album(models.Model):
 
     owner = models.ForeignKey('auth.User', related_name='albums', on_delete=models.CASCADE)
@@ -25,6 +38,15 @@ class Album(models.Model):
     num_stars = models.IntegerField()
     size = models.IntegerField()
 
+    def save(self, *args, **kwargs):
+        lexer = get_lexer_by_name(self.language)
+        linenos = 'table' if self.linenos else False
+        options = {'title': self.title} if self.title else {}
+        formatter = HtmlFormatter(style=self.style, linenos=linenos,
+                                full=True, **options)
+        self.highlighted = highlight(self.code, lexer, formatter)
+        super(Album, self).save(*args, **kwargs)
+
 class Playlist(models.Model):
 
     owner = models.ForeignKey('auth.User', related_name='playlists', on_delete=models.CASCADE)
@@ -35,18 +57,18 @@ class Playlist(models.Model):
     creation_date = models.DateField()
     num_stars = models.IntegerField()
     size = models.IntegerField()
-    
+
     def save(self, *args, **kwargs):
-    """
-    Use the `pygments` library to create a highlighted HTML
-    representation of the code snippet.
-    """
-    lexer = get_lexer_by_name(self.language)
-    linenos = 'table' if self.linenos else False
-    options = {'title': self.title} if self.title else {}
-    formatter = HtmlFormatter(style=self.style, linenos=linenos,
-                              full=True, **options)
-    self.highlighted = highlight(self.code, lexer, formatter)
-    super(Snippet, self).save(*args, **kwargs)
+        """
+        Use the `pygments` library to create a highlighted HTML
+        representation of the playlist.
+        """
+        lexer = get_lexer_by_name(self.language)
+        linenos = 'table' if self.linenos else False
+        options = {'title': self.title} if self.title else {}
+        formatter = HtmlFormatter(style=self.style, linenos=linenos,
+                                full=True, **options)
+        self.highlighted = highlight(self.code, lexer, formatter)
+        super(Playlist, self).save(*args, **kwargs)
 
 
