@@ -17,14 +17,12 @@ class Song(models.Model):
     def save(self, *args, **kwargs):
         """
         Use the `pygments` library to create a highlighted HTML
-        representation of the song.
+        representation of the playlist.
         """
-        lexer = get_lexer_by_name(self.language)
-        linenos = 'table' if self.linenos else False
-        options = {'title': self.title} if self.title else {}
-        formatter = HtmlFormatter(style=self.style, linenos=linenos,
-                                full=True, **options)
-        self.highlighted = highlight(self.code, lexer, formatter)
+        upload_date = self.upload_date
+        file_name = 'stars' if self.linenos else False #all bruh moments im not sure how we collect these
+        options = {'title': self.name} if self.name else {}
+        self.highlighted = highlight(self.name)
         super(Song, self).save(*args, **kwargs)
 
 class Album(models.Model):
@@ -39,12 +37,14 @@ class Album(models.Model):
     size = models.IntegerField()
 
     def save(self, *args, **kwargs):
-        lexer = get_lexer_by_name(self.language)
-        linenos = 'table' if self.linenos else False
-        options = {'title': self.title} if self.title else {}
-        formatter = HtmlFormatter(style=self.style, linenos=linenos,
-                                full=True, **options)
-        self.highlighted = highlight(self.code, lexer, formatter)
+        """
+        Use the `pygments` library to create a highlighted HTML
+        representation of the playlist.
+        """
+        artist = self.artist
+        num_stars = 'stars' if self.linenos else False #all bruh moments im not sure how we collect these
+        options = {'title': self.name} if self.name else {}
+        self.highlighted = highlight(self.name)
         super(Album, self).save(*args, **kwargs)
 
 class Playlist(models.Model):
@@ -63,12 +63,10 @@ class Playlist(models.Model):
         Use the `pygments` library to create a highlighted HTML
         representation of the playlist.
         """
-        lexer = get_lexer_by_name(self.language)
-        linenos = 'table' if self.linenos else False
-        options = {'title': self.title} if self.title else {}
-        formatter = HtmlFormatter(style=self.style, linenos=linenos,
-                                full=True, **options)
-        self.highlighted = highlight(self.code, lexer, formatter)
+        artist = self.artist
+        num_stars = 'stars' if self.linenos else False #all bruh moments im not sure how we collect these
+        options = {'title': self.name} if self.name else {}
+        self.highlighted = highlight(self.name)
         super(Playlist, self).save(*args, **kwargs)
 
 
