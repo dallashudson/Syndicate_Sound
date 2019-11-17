@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
 from rest_framework.schemas import get_schema_view
+from app import views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -25,4 +26,6 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('api/v1/', include('users.urls')),
     path('admin/', admin.site.urls),
+    path('api/v1/app/', views.PlaylistList.as_view()),
+    path('api/v1/app/<int:pk>/', views.PlaylistDetail.as_view()),
 ]
