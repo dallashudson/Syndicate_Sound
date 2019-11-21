@@ -1,15 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render } from 'react-dom'
-import { createStore } from 'redux'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Root from 'Root'
-
-
-const store = createStore(todoApp)
-render(<Root store={store} />, document.getElementById('root'))
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

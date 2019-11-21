@@ -17,6 +17,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import Markdown from './Markdown';
+//import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router';
 //import post1 from './blog-post.1.md';
 //import post2 from './blog-post.2.md';
 //import post3 from './blog-post.3.md';
@@ -122,7 +125,9 @@ const featuredPosts = [
 
 //const posts = [post1, post2, post3];
 
-
+const SignIn = React.forwardRef((props, ref) => (
+  <RouterLink innerRef={ref} to="/src/components/SignInSide/" {...props} />
+));
 const social = ['GitHub', 'Twitter', 'Facebook'];
 
 export default function Blog() {
@@ -142,13 +147,17 @@ export default function Blog() {
             noWrap
             className={classes.toolbarTitle}
           >
-            Crack Smokers Alliance
+          
           </Typography>
           <IconButton>
           </IconButton>
-          <Button variant="outlined" size="small">
-            Sign up
-          </Button>
+          <Router>
+            <div>
+              <Button color="primary" component={SignIn}>
+                Sign In
+              </Button>
+            </div>
+          </Router>
         </Toolbar>
         <main>
           {/* Main featured post */}
@@ -166,11 +175,11 @@ export default function Blog() {
               <Grid item md={6}>
                 <div className={classes.mainFeaturedPostContent}>
                   <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                    What is the CSA?
+                    Syndicate
                   </Typography>
                   <Typography variant="h5" color="inherit" paragraph>
-                    The Crack Smokers Alliance is an elite society formed from some of society&apos;s most interesting
-                    and talented individuals.
+                    The best place to upload your music and the best place to find
+                    your favorite new artist.
                   </Typography>
                   <Link variant="subtitle1" href="#">
                     Continue reading…
@@ -255,7 +264,7 @@ export default function Blog() {
             Footer
           </Typography>
           <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            Something here to give the footer a purpose!
+            Site By Dallas
           </Typography>
           <Copyright />
         </Container>
